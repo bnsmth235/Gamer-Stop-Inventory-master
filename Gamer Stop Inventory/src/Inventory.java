@@ -10,7 +10,9 @@
  */
 
 import javax.swing.*;
-
+import java.nio.*;
+import java.nio.file.FileSystems;
+import java.nio.file.PathMatcher;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -21,6 +23,7 @@ public class Inventory {
 	public static Scanner in=new Scanner(System.in);
 	public static String srch_in;
 	public static String return_word_and_def;
+	public static JFrame frame;
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -51,69 +54,114 @@ public class Inventory {
 				} //goes to the start method
 			}
 		});
-		
 		e.addActionListener(new ActionListener(){ //if you press the employee button
 			public void actionPerformed(ActionEvent e){
-				
-				frame.setVisible(false);//gets rid of old window
-				
-				JFrame login_frame = new JFrame("Employee Login");
-				login_frame.setSize(300, 300);
-				
-				login_frame.setLayout(null); //new window setup
-			    login_frame.setVisible(true);
-				
-				final JPasswordField pass = new JPasswordField(); //Password field text entry
-			    pass.setBounds(100,75,100,30);   
-			    
-			    final JTextField user = new JTextField();  
-			    user.setBounds(100,20, 100,30); //username entry
-			    
-			    JLabel l1=new JLabel("Username:");    
-			    l1.setBounds(20,20, 80,30);   //just username title
-			    
-			    JLabel l2=new JLabel("Password:");    
-			    l2.setBounds(20,75, 80,30);    //password title
-			    
-			    JButton b = new JButton("Login");  
-			    b.setBounds(100,120, 90,30);   //login button 
-			    
-			    JButton r=new JButton("Register");
-			    r.setBounds(100, 160, 90, 30);
-			    
-			    
-			    
-			    login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); login_frame.add(user); login_frame.add(r);//add all components to frame
-			    
-			    
-			    b.addActionListener(new ActionListener() {  
-			    	public void actionPerformed(ActionEvent e) {  
-			    		String username = user.getText();  //gets input from the frame and saves into variables
-			    		String password = pass.getText();
-
-			    		try {
-							if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
-								System.out.println("Welcome"+username);
-								JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
-								welcome.setBounds(100, 200, 80, 30);
-								login_frame.add(welcome);
-							}else{
-							}
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();//idk why this is here, but it doesnt work without it
-						}
-			    	}  
-			    });  
-			    
-			    r.addActionListener(new ActionListener(){
-			    	public void actionPerformed(ActionEvent a){
-			    		
-			    	}
-			    });
+				employee();
 			}
 		});
+	}
+	public static void employee(){
 		
+		frame.setVisible(false);//gets rid of old window
+				
+		JFrame login_frame = new JFrame("Employee Login");
+		login_frame.setSize(300, 300);	
+		login_frame.setLayout(null); //new window setup
+		login_frame.setVisible(true);
+				
+		final JPasswordField pass = new JPasswordField(); //Password field text entry
+		pass.setBounds(100,75,100,30);   
+			    
+		final JTextField user = new JTextField();  
+		user.setBounds(100,20, 100,30); //username entry
+			    
+		JLabel l1=new JLabel("Username:");    
+		l1.setBounds(20,20, 80,30);   //just username title
+			    
+		JLabel l2=new JLabel("Password:");    
+		l2.setBounds(20,75, 80,30);    //password title
+			    
+		JButton b = new JButton("Login");  
+		b.setBounds(100,120, 90,30);   //login button 
+			    
+		JButton r=new JButton("Register");
+		r.setBounds(100, 160, 90, 30);
+			    
+			    
+			    
+		login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); login_frame.add(user); login_frame.add(r);//add all components to frame
+			    
+		b.addActionListener(new ActionListener() {  
+			public void actionPerformed(ActionEvent e) {  
+			    String username = user.getText();  //gets input from the frame and saves into variables
+			    String password = pass.getText();
+
+			    try {
+					if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
+						System.out.println("Welcome"+username);
+						JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
+						welcome.setBounds(100, 200, 80, 30);
+						login_frame.add(welcome);
+					}else{
+						
+							}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();//idk why this is here, but it doesnt work without it
+				}
+			 }  
+		});  
+			    
+		r.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent a){
+			login_frame.setVisible(false);
+			    		
+			    		JFrame register=new JFrame("Register New Employee");
+			    		register.setSize(350,350);
+			    		register.setLayout(null);
+			    		register.setVisible(true);
+			    		
+			    		JLabel reg_label=new JLabel("Welcome new employee!");
+			    		reg_label.setBounds(90,15,200,25);
+						
+						JPasswordField pass = new JPasswordField(); //Password field text entry
+					    pass.setBounds(130,100,100,30);   
+					    
+					    JTextField user = new JTextField();  
+					    user.setBounds(130,50,100,30); //username entry
+					    
+					    JPasswordField confirm= new JPasswordField(); //confirm Password field text entry
+					    confirm.setBounds(130,150,100,30);
+					    
+					    JLabel l1=new JLabel("Username:");    
+					    l1.setBounds(57,50, 80,30);   //just username title
+					    
+					    JLabel l2=new JLabel("Password:");    
+					    l2.setBounds(57,100, 80,30);    //password title
+					    
+					    JLabel l3=new JLabel("Confirm Password:");    
+					    l3.setBounds(10,150,150,30); 
+					    
+					    JButton b = new JButton("Login");  
+					    b.setBounds(130,220, 90,30);   //login button 
+					    
+					  
+			    		register.add(user); register.add(pass); register.add(reg_label); register.add(l2);
+			    		register.add(b); register.add(l1); register.add(l3); register.add(confirm);
+			    		
+			    		b.addActionListener(new ActionListener(){
+			    			public void actionPerformed(ActionEvent a){
+			    				String username=user.getText();
+			    				String password=user.getText();
+			    				String c_password=confirm.getText();
+			    				
+			    				if(password.equals(c_password)){
+			    					employee();
+			    				}
+			    			}
+			    		});
+			    	}
+			    });
 	}
 	
 	
@@ -158,6 +206,7 @@ public class Inventory {
 	}
 	
 	public static void FileWriter(String word_and_def) throws IOException{
+		
 		FileWriter fw=new FileWriter("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory\\Gamer Stop Inventory\\src\\User_pass.txt.txt", true); //writes new registered employees
 		PrintWriter pw=new PrintWriter(fw, true);
 		pw.println(word_and_def); //File Writing Method so I don't have to type this every time
