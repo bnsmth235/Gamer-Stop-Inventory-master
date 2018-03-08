@@ -10,6 +10,7 @@
  */
 
 import javax.swing.*;
+
 import java.nio.*;
 import java.nio.file.FileSystems;
 import java.nio.file.PathMatcher;
@@ -27,7 +28,7 @@ public class Inventory {
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		JFrame frame=new JFrame("Gamer Stop Inventory"); //UI start 
+		frame=new JFrame("Gamer Stop Inventory"); //UI start 
 		frame.setSize(1000, 500);
 		frame.setLayout(null);	
 		frame.setVisible(true);
@@ -60,6 +61,7 @@ public class Inventory {
 			}
 		});
 	}
+	
 	public static void employee(){
 		
 		frame.setVisible(false);//gets rid of old window
@@ -87,24 +89,26 @@ public class Inventory {
 		JButton r=new JButton("Register");
 		r.setBounds(100, 160, 90, 30);
 			    
-			    
-			    
-		login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); login_frame.add(user); login_frame.add(r);//add all components to frame
+		login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); 
+		login_frame.add(user); login_frame.add(r);//add all components to frame
 			    
 		b.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent e) {  
 			    String username = user.getText();  //gets input from the frame and saves into variables
 			    String password = pass.getText();
-
+			    
 			    try {
 					if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
-						System.out.println("Welcome"+username);
+						System.out.println("Welcome "+username);
 						JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
-						welcome.setBounds(100, 200, 80, 30);
+						welcome.setBounds(75,200,100,100);
 						login_frame.add(welcome);
 					}else{
-						
-							}
+						//you need something here to make it say that you got the username/password wrong
+						JLabel incorrect=new JLabel("Username or Password Incorrect");
+						incorrect.setBounds(45,200,300,50);
+						login_frame.add(incorrect);
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();//idk why this is here, but it doesnt work without it
@@ -114,54 +118,53 @@ public class Inventory {
 			    
 		r.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent a){
-			login_frame.setVisible(false);
+				login_frame.setVisible(false);
 			    		
-			    		JFrame register=new JFrame("Register New Employee");
-			    		register.setSize(350,350);
-			    		register.setLayout(null);
-			    		register.setVisible(true);
+			    JFrame register=new JFrame("Register New Employee");
+			    register.setSize(350,350);
+			    register.setLayout(null);
+			    register.setVisible(true);
 			    		
-			    		JLabel reg_label=new JLabel("Welcome new employee!");
-			    		reg_label.setBounds(90,15,200,25);
+			    JLabel reg_label=new JLabel("Welcome new employee!");
+			    reg_label.setBounds(90,15,200,25);
 						
-						JPasswordField pass = new JPasswordField(); //Password field text entry
-					    pass.setBounds(130,100,100,30);   
+				JPasswordField pass = new JPasswordField(); //Password field text entry
+				pass.setBounds(130,100,100,30);   
 					    
-					    JTextField user = new JTextField();  
-					    user.setBounds(130,50,100,30); //username entry
+				JTextField user = new JTextField();  
+				user.setBounds(130,50,100,30); //username entry
 					    
-					    JPasswordField confirm= new JPasswordField(); //confirm Password field text entry
-					    confirm.setBounds(130,150,100,30);
+				JPasswordField confirm= new JPasswordField(); //confirm Password field text entry
+				confirm.setBounds(130,150,100,30);
 					    
-					    JLabel l1=new JLabel("Username:");    
-					    l1.setBounds(57,50, 80,30);   //just username title
+				JLabel l1=new JLabel("Username:");    
+				l1.setBounds(57,50, 80,30);   //just username title
 					    
-					    JLabel l2=new JLabel("Password:");    
-					    l2.setBounds(57,100, 80,30);    //password title
+				JLabel l2=new JLabel("Password:");    
+				l2.setBounds(57,100, 80,30);    //password title
 					    
-					    JLabel l3=new JLabel("Confirm Password:");    
-					    l3.setBounds(10,150,150,30); 
+				JLabel l3=new JLabel("Confirm Password:");    
+				l3.setBounds(10,150,150,30); 
 					    
-					    JButton b = new JButton("Login");  
-					    b.setBounds(130,220, 90,30);   //login button 
+				JButton b = new JButton("Login");  
+				b.setBounds(130,220, 90,30);   //login button 
 					    
-					  
-			    		register.add(user); register.add(pass); register.add(reg_label); register.add(l2);
-			    		register.add(b); register.add(l1); register.add(l3); register.add(confirm);
+				register.add(user); register.add(pass); register.add(reg_label); register.add(l2);
+			    register.add(b); register.add(l1); register.add(l3); register.add(confirm);
 			    		
-			    		b.addActionListener(new ActionListener(){
-			    			public void actionPerformed(ActionEvent a){
-			    				String username=user.getText();
-			    				String password=user.getText();
-			    				String c_password=confirm.getText();
+			    b.addActionListener(new ActionListener(){
+			    	public void actionPerformed(ActionEvent a){
+			    		String username=user.getText();
+			    		String password=user.getText();
+			    		String c_password=confirm.getText();
 			    				
-			    				if(password.equals(c_password)){
-			    					employee();
-			    				}
-			    			}
-			    		});
+			    		if(password.equals(c_password)){
+			    			employee();
+			    		}
 			    	}
 			    });
+			 }
+		});
 	}
 	
 	
@@ -172,42 +175,47 @@ public class Inventory {
 		c_frame.setVisible(true);
 		
 		JLabel c_start=new JLabel("Search for a Title by Name or Console");//title at top of frame
-		c_start.setBounds(333,25,666,75);
+		c_start.setBounds(50,15,666,75);
 		
 		String[] console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
 		JComboBox consoles=new JComboBox(console);
-		consoles.setBounds(250, 120, 125, 30);
+		consoles.setBounds(80, 90, 125, 30);
 		
 		JLabel title_label=new JLabel("Game Title:");//title
-		title_label.setBounds(410, 120, 100, 30);
+		title_label.setBounds(20, 150, 100, 30);
 		
 		JTextField title=new JTextField(); //search entry
-		title.setBounds(480, 120, 250, 30);
+		title.setBounds(100, 150, 180, 30);
 		
 		JButton search=new JButton("Search");
-		search.setBounds(400, 180, 80, 30); //enter button basically
+		search.setBounds(100, 220, 80, 30);//enter button basically
 		
-		c_frame.add(c_start); c_frame.add(consoles); c_frame.add(title_label); c_frame.add(title); c_frame.add(search); //add all components to the frame
+		JTextArea area=new JTextArea();
+		area.setBounds(300,30,600,400);
+		JScrollPane scroll=new JScrollPane(area);
+		area.setEditable(false);
+		
+		c_frame.add(area); c_frame.add(scroll); c_frame.add(c_start); c_frame.add(consoles); c_frame.add(title_label); 
+		c_frame.add(title); c_frame.add(search); //add all components to the frame
 		
 		search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent a){
-				String game_title=title.getText(); //puts searched title into the variable
-				
+				String game_title=title.getText(); //puts searched title into the variable       
+			    String data=(String) consoles.getItemAt(consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
+			    try {
+			    	area.append(FileReader_game_titles(game_title,data)+"\n");
+			    } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			    }
 			}
 		});
-		consoles.addActionListener(new ActionListener() {  
-	        public void actionPerformed(ActionEvent b) {       
-	        	Object data=consoles.getItemAt(consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
-	        }  
-		});           
-		
-		
-		
+
 	}
 	
 	public static void FileWriter(String word_and_def) throws IOException{
 		
-		FileWriter fw=new FileWriter("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory\\Gamer Stop Inventory\\src\\User_pass.txt.txt", true); //writes new registered employees
+		FileWriter fw=new FileWriter("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt", true); //writes new registered employees
 		PrintWriter pw=new PrintWriter(fw, true);
 		pw.println(word_and_def); //File Writing Method so I don't have to type this every time
 		pw.close();
@@ -216,7 +224,7 @@ public class Inventory {
 	}
 	
 	public static boolean FileReader_user_pass(String user, String pass) throws IOException{
-		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory\\Gamer Stop Inventory\\src\\User_pass.txt.txt")); //reads username and password lists
+		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt")); //reads username and password lists
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			if(find_line.toLowerCase().contains(user.toLowerCase())){//checks if the word (lower case) is in any words or 
@@ -230,19 +238,27 @@ public class Inventory {
 		return false;
 	}
 	
-	public static boolean FileReader_game_titles(String title, String console) throws IOException{ //reads list of game titles
-		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory\\Gamer Stop Inventory\\src\\Game_titles.txt"));
+	public static String FileReader_game_titles(String title, String console) throws IOException{ //reads list of game titles
+		String list[]=new String[1000];
+		int maxIndx=-1;
+		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
+		
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			if(find_line.toLowerCase().contains(title.toLowerCase())){//checks if the word (lower case) is in any words or 
 				if(find_line.toLowerCase().contains(console.toLowerCase())){
-					scan.close();
-					return true;
+					maxIndx++;
+					list[maxIndx]=find_line;
 				}
 			}
 		}
+		String games = null;
+		for(int j=0;j<=maxIndx;j++){
+			System.out.println(list[j]);
+			games=list[j]+"\n"+games;
+		}
 		scan.close();
-		return false;
+		return games;
 	}
 	
 	
