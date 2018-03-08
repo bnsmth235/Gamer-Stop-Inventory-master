@@ -3,4 +3,13 @@ Fortnite, PS4, $19.99, New, $5.00
 Minecraft, XBox One, $29.99, New, $15.00
 Minecraft, PS4, $29.99, New, $15.00
 Minecraft, PS4, $11.00, Used, $5.00
+Minecraft, Switch, $29.99, New, $15.00
+Minecraft, Switch, $14.99, Used, $8.00
 Overwatch, XBox One, $29.99, New, $17.00
+Call of Duty: WWII, XBox One, New, $59.99, $35.00
+Call of Duty: WWII, XBox One, Used, $39.99, $35.00
+Call of Duty: WWII, PS4, New, $59.99, $35.00
+Call of Duty: WWII, PS4, Used, $39.99, $35.00
+Super Mario Odyssey, Switch, New, $59.99, $30.00
+The Legend of Zelda: Breath of the Wild, Switch, New, $59.99, $30.00
+LoZ: BotW Expansion Pass, Switch, New, $19.99, $3.00
