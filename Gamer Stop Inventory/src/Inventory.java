@@ -19,7 +19,7 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class Inventory {
+public class inventory {
 	
 	public static Scanner in=new Scanner(System.in);
 	public static String srch_in;
@@ -95,14 +95,16 @@ public class Inventory {
 		b.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent e) {  
 			    String username = user.getText();  //gets input from the frame and saves into variables
-			    String password = pass.getText();
+			    @SuppressWarnings("deprecation")
+				String password = pass.getText();
 			    
 			    try {
 					if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
-						System.out.println("Welcome "+username);
 						JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
 						welcome.setBounds(75,200,100,100);
 						login_frame.add(welcome);
+						login_frame.setVisible(false);
+						e_search_frame();
 					}else{
 						//you need something here to make it say that you got the username/password wrong
 						JLabel incorrect=new JLabel("Username or Password Incorrect");
@@ -154,9 +156,9 @@ public class Inventory {
 			    		
 			    b.addActionListener(new ActionListener(){
 			    	public void actionPerformed(ActionEvent a){
-			    		String username=user.getText();
 			    		String password=user.getText();
-			    		String c_password=confirm.getText();
+			    		@SuppressWarnings("deprecation")
+						String c_password=confirm.getText();
 			    				
 			    		if(password.equals(c_password)){
 			    			employee();
@@ -178,6 +180,7 @@ public class Inventory {
 		c_start.setBounds(50,15,666,75);
 		
 		String[] console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JComboBox consoles=new JComboBox(console);
 		consoles.setBounds(80, 90, 125, 30);
 		
@@ -203,7 +206,7 @@ public class Inventory {
 				String game_title=title.getText(); //puts searched title into the variable       
 			    String data=(String) consoles.getItemAt(consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
 			    try {
-			    	area.append(FileReader_game_titles(game_title,data)+"\n");
+			    	area.append(FileReader_game_titles(game_title,data)+"\n"); //adds the part of the file that is what they searched for to the text area
 			    } catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -212,6 +215,70 @@ public class Inventory {
 		});
 
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public static void e_search_frame() throws IOException{
+		
+		
+		JFrame e_frame=new JFrame("Employee Inventory Search");
+		e_frame.setSize(1000, 500);
+		e_frame.setLayout(null);
+		e_frame.setVisible(true);
+		
+		JLabel e_start=new JLabel("Search for a Title by Name or Console");//title at top of frame
+		e_start.setBounds(50,15,666,75);
+		
+		String[] e_console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
+		@SuppressWarnings("unchecked")
+		JComboBox e_consoles=new JComboBox(e_console);
+		e_consoles.setBounds(80, 90, 130, 30);
+		
+		JLabel e_title_label=new JLabel("Game Title:");//title
+		e_title_label.setBounds(20, 150, 100, 30);
+		
+		JTextField e_title=new JTextField(); //search entry
+		e_title.setBounds(100, 150, 180, 30);
+		
+		JButton e_search=new JButton("Search");
+		e_search.setBounds(100, 220, 80, 30);//enter button basically
+		
+		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
+		e_frame.add(e_title); e_frame.add(e_search); //add all components to the frame
+		
+		e_search.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent b){
+				String title_data[][] = new String[1000][1000];
+				String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
+				
+				String game_title=e_title.getText(); //puts searched title into the variable       
+			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
+			    try {
+
+			    	String search_data=FileReader_game_titles(game_title,data);//adds the part of the file that is what they searched for to the text area
+			    	
+			    	String split_read_data[]=search_data.split(", ");
+			    	
+			    	for(int a=0;a<=split_read_data.length;a++){
+			    			System.out.println(split_read_data[a]);
+			    			title_data[1][0]=split_read_data[0];
+			    			
+			    			JTable area=new JTable(title_data, column);
+			    			area.setBounds(300, 30, 600, 400);
+			    			JScrollPane sp=new JScrollPane(area);
+			    			
+			    			e_frame.add(sp);
+			    	}
+			    	
+			    } 
+			    catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			    }
+			}
+		});
+
+	}
+	
 	
 	public static void FileWriter(String word_and_def) throws IOException{
 		
@@ -242,15 +309,17 @@ public class Inventory {
 		String list[]=new String[1000];
 		int maxIndx=-1;
 		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
-		
+
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
-			if(find_line.toLowerCase().contains(title.toLowerCase())){//checks if the word (lower case) is in any words or 
+			
+			if(find_line.toLowerCase().contains(title.toLowerCase())){ //checks if the word (lower case) is in any words or 
 				if(find_line.toLowerCase().contains(console.toLowerCase())){
 					maxIndx++;
 					list[maxIndx]=find_line;
 				}
 			}
+			System.out.println();
 		}
 		String games = null;
 		for(int j=0;j<=maxIndx;j++){
@@ -260,51 +329,7 @@ public class Inventory {
 		scan.close();
 		return games;
 	}
-	
-	
-	public static void word_def_check(String word) throws IOException{
-		System.out.print("Enter your definition for: "+word+"\n");//already enters the word that they were searching for
-		System.lineSeparator();
-		Scanner scn=new Scanner(System.in);
-		String def=scn.nextLine();
-		System.lineSeparator();
-		System.out.println("Is this the definition for '"+word+"' that you want?: " +def);//bug makes this print and skip def scan??
-		System.lineSeparator();
-		String yes_no=in.next();
-		
-		if(yes_no.equals("yes")||
-				yes_no.equals("Yes")||
-				yes_no.equals("YES")||//Several options for user type
-				yes_no.contains("y")||
-				yes_no.equals("Y")){
-			
-			String both=word+", "+def;
-			FileWriter(both);
-			new_wrd_not_found(); //combines word and definition
-		}else{
-			word_def_check(word);//resets method	
-		}
-	}
-	
-	public static void new_wrd_not_found() throws IOException {//all of the formatting is already done
-		
-		System.out.println("Would you like to search for or create a new word? (yes/no)");
-		
-		String yes_no=in.next();
-		
-		if(yes_no.equals("yes")||
-				yes_no.equals("Yes")||
-				yes_no.equals("YES")||
-				yes_no.equals("y")||
-				yes_no.equals("Y")){
-			
-			start();
-			
-		}else{
-			System.exit(0);
-		}
-	}
-	
+
 
 }
 
