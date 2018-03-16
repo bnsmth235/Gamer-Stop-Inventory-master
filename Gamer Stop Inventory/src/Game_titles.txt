@@ -13,10 +13,10 @@ Call of Duty: WWII, PS4, Used, $39.99, $35.00
 Super Mario Odyssey, Switch, New, $59.99, $30.00
 The Legend of Zelda: Breath of the Wild, Switch, New, $59.99, $30.00
 LoZ: BotW Expansion Pass, Switch, New, $19.99, $3.00
-Nintendo Switch Smash Bros (Working Title) Pre-order, Switch, New, $59.99, $40
+Nintendo Switch Smash Bros (Working Title), Switch, New, $59.99, $40
 Splatoon 2, Switch, New, $59.99, $30
-Call of Duty: Black Ops 4 Pre-order, PS4, New, $59.99, $40
-Call of Duty: Black Ops 4 Pre-order, XBox One, New, $59.99, $40
+Call of Duty: Black Ops 4, PS4, New, $59.99, $40
+Call of Duty: Black Ops 4, XBox One, New, $59.99, $40
 ARMS, Switch, New, $59.99, $30
 Kirby Star Allies, Switch, New, $59.99, $30
 Xenoblade Chronicles 2, Switch, New, $59.99, $30
@@ -27,3 +27,8 @@ Star Wars: Battlefront 2, PS4, Used, $39.99, $20
 Star Wars: Battlefront 2, XBox One, New, $59.99, $30
 Star Wars: Battlefront 2, XBox One, Used, $39.99, $20
 Roblox Robux (4500), XBox One, New, $49.95, $10
+Donkey Kong Country: Tropical Freeze, Switch, New, $59.99, $30
+Cave Story+, Switch, New, $29.99, $15
+Elder Scrolls: Skyrim, Switch, New, $59.99, $30
+Crash Bandicoot: N-Sane Trilogy, PS4, New, $59.99, $30
+Crash Bandicoot: N-Sane Trilogy, Switch, New, $59.99, $30
