@@ -205,8 +205,10 @@ public class inventory {
 			public void actionPerformed(ActionEvent a){
 				String game_title=title.getText(); //puts searched title into the variable       
 			    String data=(String) consoles.getItemAt(consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
+			   
 			    try {
-			    	area.append(FileReader_game_titles(game_title,data)+"\n"); //adds the part of the file that is what they searched for to the text area
+			    	area.append(FileReader_c_game_titles(game_title,data)+"\n"); //adds the part of the file that is what they searched for to the text area
+			    	
 			    } catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -250,24 +252,25 @@ public class inventory {
 				String title_data[][] = new String[1000][1000];
 				String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 				
+				JTable area;
+    			
+    			
 				String game_title=e_title.getText(); //puts searched title into the variable       
 			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
 			    try {
 
-			    	String search_data=FileReader_game_titles(game_title,data);//adds the part of the file that is what they searched for to the text area
+			    	String search_data=FileReader_e_game_titles(game_title,data);//adds the part of the file that is what they searched for to the text area
 			    	
 			    	String split_read_data[]=search_data.split(", ");
 			    	
-			    	for(int a=0;a<=split_read_data.length;a++){
+			    	for(int a=0;a<=split_read_data.length-1;a++){
+			    		for(int z=0;z<=split_read_data.length-1;z++){
 			    			System.out.println(split_read_data[a]);
-			    			title_data[1][0]=split_read_data[0];
+			    			title_data[a][z]=split_read_data[a];
+			    		}
 			    			
-			    			JTable area=new JTable(title_data, column);
-			    			area.setBounds(300, 30, 600, 400);
-			    			JScrollPane sp=new JScrollPane(area);
-			    			
-			    			e_frame.add(sp);
 			    	}
+			    	area=new JTable(title_data,column);
 			    	
 			    } 
 			    catch (IOException e) {
@@ -305,7 +308,34 @@ public class inventory {
 		return false;
 	}
 	
-	public static String FileReader_game_titles(String title, String console) throws IOException{ //reads list of game titles
+	public static String FileReader_c_game_titles(String title, String console) throws IOException{ //reads list of game titles
+		String list[]=new String[1000];
+		int maxIndx=-1;
+		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
+
+		while(scan.hasNextLine()){
+			final String find_line=scan.nextLine();
+			
+			if(find_line.toLowerCase().contains(title.toLowerCase())){ //checks if the word (lower case) is in any words or 
+				if(find_line.toLowerCase().contains(console.toLowerCase())){
+					maxIndx++;
+					list[maxIndx]=find_line;
+				}
+			}
+			System.out.println();
+		}
+		String games = null;
+		for(int j=0;j<=maxIndx;j++){
+			System.out.println(list[j]);
+			int splt_cost=list[j].lastIndexOf(", ");
+			System.out.println(splt_cost);
+			games=list[j].substring(0, splt_cost)+"\n"+games;
+		}
+		scan.close();
+		return games;
+	}
+	
+	public static String FileReader_e_game_titles(String title, String console) throws IOException{ //reads list of game titles
 		String list[]=new String[1000];
 		int maxIndx=-1;
 		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
