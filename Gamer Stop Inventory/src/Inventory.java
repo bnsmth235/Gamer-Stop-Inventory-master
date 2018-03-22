@@ -10,11 +10,6 @@
  */
 
 import javax.swing.*;
-
-import java.nio.*;
-import java.nio.file.FileSystems;
-import java.nio.file.PathMatcher;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
@@ -220,7 +215,8 @@ public class inventory {
 	
 	@SuppressWarnings("rawtypes")
 	public static void e_search_frame() throws IOException{
-		
+		JTable area=new JTable();
+		area.setBounds(300,30,600,400);
 		
 		JFrame e_frame=new JFrame("Employee Inventory Search");
 		e_frame.setSize(1000, 500);
@@ -252,26 +248,43 @@ public class inventory {
 				String title_data[][] = new String[1000][1000];
 				String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 				
-				JTable area;
-    			
-    			
 				String game_title=e_title.getText(); //puts searched title into the variable       
 			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
+			    
 			    try {
+			    	String list[]=new String[1000];
+			    	int maxIndx=-1;
+			    	Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
 
-			    	String search_data=FileReader_e_game_titles(game_title,data);//adds the part of the file that is what they searched for to the text area
-			    	
-			    	String split_read_data[]=search_data.split(", ");
-			    	
-			    	for(int a=0;a<=split_read_data.length-1;a++){
-			    		for(int z=0;z<=split_read_data.length-1;z++){
-			    			System.out.println(split_read_data[a]);
-			    			title_data[a][z]=split_read_data[a];
+			    	while(scan.hasNextLine()){
+			    		final String find_line=scan.nextLine();
+			    		if(find_line.toLowerCase().contains(game_title.toLowerCase())){ //checks if the word (lower case) is in any words or 
+			    			if(find_line.toLowerCase().contains(data.toLowerCase())){
+			    				maxIndx++;
+			    				list[maxIndx]=find_line;
+			    			}
 			    		}
-			    			
 			    	}
-			    	area=new JTable(title_data,column);
+			    	for(int j=0;j<=maxIndx;j++){ //iterates through every line containing what was searched
+			    		String split_read_data[]=list[j].split(", ");
+			    		int x=0;
+				    	for(int a=0;a<=split_read_data.length-1;a++){ //this takes the data from search_data and splits it into its individual parts: name, console, condition, price, cost
+				    		System.out.println(a/5);
+				    		System.out.println(a);
+				    		if(a/5==0){   //if a is not 5...
+				    			//System.out.println(x+" "+y);
+				    			title_data[j][x]=split_read_data[a];
+				    			x++;
+				    		}
+				    	}
+			    	}
+			    	scan.close();
 			    	
+			    	area=new JTable(title_data,column); //fix this
+			    	
+			    	JScrollPane scroll=new JScrollPane(area);
+			    	
+			    	System.out.println("added");
 			    } 
 			    catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -279,7 +292,6 @@ public class inventory {
 			    }
 			}
 		});
-
 	}
 	
 	
@@ -335,31 +347,6 @@ public class inventory {
 		return games;
 	}
 	
-	public static String FileReader_e_game_titles(String title, String console) throws IOException{ //reads list of game titles
-		String list[]=new String[1000];
-		int maxIndx=-1;
-		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
-
-		while(scan.hasNextLine()){
-			final String find_line=scan.nextLine();
-			
-			if(find_line.toLowerCase().contains(title.toLowerCase())){ //checks if the word (lower case) is in any words or 
-				if(find_line.toLowerCase().contains(console.toLowerCase())){
-					maxIndx++;
-					list[maxIndx]=find_line;
-				}
-			}
-			System.out.println();
-		}
-		String games = null;
-		for(int j=0;j<=maxIndx;j++){
-			System.out.println(list[j]);
-			games=list[j]+"\n"+games;
-		}
-		scan.close();
-		return games;
-	}
-
 
 }
 

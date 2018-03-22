@@ -6,29 +6,29 @@ Minecraft, PS4, $11.00, Used, $5.00
 Minecraft, Switch, $29.99, New, $15.00
 Minecraft, Switch, $14.99, Used, $8.00
 Overwatch, XBox One, $29.99, New, $17.00
-Call of Duty: WWII, XBox One, New, $59.99, $35.00
-Call of Duty: WWII, XBox One, Used, $39.99, $35.00
-Call of Duty: WWII, PS4, New, $59.99, $35.00
-Call of Duty: WWII, PS4, Used, $39.99, $35.00
-Super Mario Odyssey, Switch, New, $59.99, $30.00
-The Legend of Zelda: Breath of the Wild, Switch, New, $59.99, $30.00
-LoZ: BotW Expansion Pass, Switch, New, $19.99, $3.00
-Nintendo Switch Smash Bros (Working Title), Switch, New, $59.99, $40
-Splatoon 2, Switch, New, $59.99, $30
-Call of Duty: Black Ops 4, PS4, New, $59.99, $40
-Call of Duty: Black Ops 4, XBox One, New, $59.99, $40
-ARMS, Switch, New, $59.99, $30
-Kirby Star Allies, Switch, New, $59.99, $30
-Xenoblade Chronicles 2, Switch, New, $59.99, $30
-Knack 2, PS4, Used, $19.99, $10
-No Man's Sky, PS4, Used, $19.99, $15
-Star Wars: Battlefront 2, Ps4, New, $59.99, $30
-Star Wars: Battlefront 2, PS4, Used, $39.99, $20
-Star Wars: Battlefront 2, XBox One, New, $59.99, $30
-Star Wars: Battlefront 2, XBox One, Used, $39.99, $20
-Roblox Robux (4500), XBox One, New, $49.95, $10
-Donkey Kong Country: Tropical Freeze, Switch, New, $59.99, $30
-Cave Story+, Switch, New, $29.99, $15
-Elder Scrolls: Skyrim, Switch, New, $59.99, $30
-Crash Bandicoot: N-Sane Trilogy, PS4, New, $59.99, $30
-Crash Bandicoot: N-Sane Trilogy, Switch, New, $59.99, $30
+Call of Duty: WWII, XBox One, $59.99, New, $35.00
+Call of Duty: WWII, XBox One, $39.99, Used, $35.00
+Call of Duty: WWII, PS4, $59.99, New, $35.00
+Call of Duty: WWII, PS4, $39.99, Used, $35.00
+Super Mario Odyssey, Switch, $59.99, New, $30.00
+The Legend of Zelda: Breath of the Wild, Switch, $59.99, New, $30.00
+LoZ: BotW Expansion Pass, Switch, $19.99, New, $3.00
+Nintendo Switch Smash Bros (Working Title), Switch, $59.99, New, $40
+Splatoon 2, Switch, $59.99, New, $30
+Call of Duty: Black Ops 4, PS4, $59.99, New, $40
+Call of Duty: Black Ops 4, XBox One, $59.99, New, $40
+ARMS, Switch, $59.99, New, $30
+Kirby Star Allies, Switch, $59.99, New, $30
+Xenoblade Chronicles 2, Switch, $59.99, New, $30
+Knack 2, PS4, $19.99, Used, $10
+No Man's Sky, PS4, $19.99, Used, $15
+Star Wars: Battlefront 2, Ps4, $59.99, New, $30
+Star Wars: Battlefront 2, PS4, $39.99, Used, $20
+Star Wars: Battlefront 2, XBox One, $59.99, New, $30
+Star Wars: Battlefront 2, XBox One, $39.99, Used, $20
+Roblox Robux (4500), XBox One, $49.95, New, $10
+Donkey Kong Country: Tropical Freeze, Switch, $59.99, New, $30
+Cave Story+, Switch, $29.99, New, $15
+Elder Scrolls: Skyrim, Switch, $59.99, New, $30
+Crash Bandicoot: N-Sane Trilogy, PS4, $59.99, New, $30
+Crash Bandicoot: N-Sane Trilogy, Switch, $59.99, New, $30
