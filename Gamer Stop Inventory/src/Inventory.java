@@ -15,6 +15,8 @@
  */
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
@@ -27,7 +29,8 @@ public class Inventory {
 	public static JFrame frame;
 	public static String home="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt";
 	public static String home_user_pass="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt";
-	public static String school="C:\\\\Users\\\\bs034696\\\\Documents\\\\GitHub\\\\Gamer-Stop-Inventory-master\\\\Gamer Stop Inventory\\\\src\\\\Game_titles.txt";
+	public static String school="C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt";
+	public static String school_user_pass="C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt";
 	public static String title_data[][] = new String[1000][1000];
 	public static String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 	
@@ -53,7 +56,7 @@ public class Inventory {
 			public void actionPerformed(ActionEvent e){
 				frame.setVisible(false);
 				try {
-					start();
+					customer();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -175,7 +178,7 @@ public class Inventory {
 	}
 	
 	
-	public static void start() throws IOException{
+	public static void customer() throws IOException{
 		JFrame c_frame=new JFrame("Customer Inventory Search");
 		c_frame.setSize(1000, 500);
 		c_frame.setLayout(null);
@@ -208,6 +211,7 @@ public class Inventory {
 		
 		search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent a){
+				area.setText(null);
 				String game_title=title.getText(); //puts searched title into the variable       
 			    String data=(String) consoles.getItemAt(consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
 			   
@@ -262,7 +266,7 @@ public class Inventory {
 			    try {
 			    	String list[]=new String[1000];
 			    	int maxIndx=-1;
-			    	Scanner scan=new Scanner(new File(home));
+			    	Scanner scan=new Scanner(new File(school));
 
 			    	while(scan.hasNextLine()){
 			    		String find_line=scan.nextLine();
@@ -299,21 +303,20 @@ public class Inventory {
 	public static void e_inventory_search_frame() {
 		JFrame e_inventory_list=new JFrame("Searched Inventory");
 		e_inventory_list.setSize(600, 400);
-		e_inventory_list.setVisible(true);
 		e_inventory_list.setLayout(null);
 		e_inventory_list.setLocation(600, 0);
 		
 		JTable area=new JTable(title_data,column);
 		area.setBounds(0,0,600,400);
-		
 		JScrollPane scroll=new JScrollPane(area);
 		
+		e_inventory_list.setVisible(true);
 		e_inventory_list.add(area);e_inventory_list.add(scroll);
 	}
 	
 	public static void FileWriter(String word_and_def) throws IOException{
 		
-		FileWriter fw=new FileWriter(home, true); //writes new registered employees
+		FileWriter fw=new FileWriter(school, true); //writes new registered employees
 		PrintWriter pw=new PrintWriter(fw, true);
 		pw.println(word_and_def); //File Writing Method so I don't have to type this every time
 		pw.close();
@@ -322,7 +325,7 @@ public class Inventory {
 	}
 	
 	public static boolean FileReader_user_pass(String user, String pass) throws IOException{
-		Scanner scan=new Scanner(new File(home_user_pass)); //reads username and password lists
+		Scanner scan=new Scanner(new File(school_user_pass)); //reads username and password lists
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			if(find_line.toLowerCase().contains(user.toLowerCase())){//checks if the word (lower case) is in any words or 
@@ -339,7 +342,7 @@ public class Inventory {
 	public static String FileReader_c_game_titles(String title, String console) throws IOException{ //reads list of game titles
 		String list[]=new String[1000];
 		int maxIndx=-1;
-		Scanner scan=new Scanner(new File(home));
+		Scanner scan=new Scanner(new File(school));
 
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
