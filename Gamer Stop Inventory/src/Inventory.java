@@ -348,7 +348,8 @@ public class Inventory {
 				if(find_line.toLowerCase().contains(console.toLowerCase())){
 					maxIndx++;
 					list[maxIndx]=find_line;
-				}
+				}//hello
+		
 			}
 			System.out.println();
 		}
