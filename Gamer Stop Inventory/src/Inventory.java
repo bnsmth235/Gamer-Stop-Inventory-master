@@ -7,6 +7,11 @@
  * @version 1.0
  * @Since January 19, 2018
  * 
+ * 
+ * C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt           for home computer
+ * C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt
+ * 
+ * C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt         for school computer
  */
 
 import javax.swing.*;
@@ -14,12 +19,17 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class inventory {
+public class Inventory {
 	
 	public static Scanner in=new Scanner(System.in);
 	public static String srch_in;
 	public static String return_word_and_def;
 	public static JFrame frame;
+	public static String home="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt";
+	public static String home_user_pass="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt";
+	public static String school="C:\\\\Users\\\\bs034696\\\\Documents\\\\GitHub\\\\Gamer-Stop-Inventory-master\\\\Gamer Stop Inventory\\\\src\\\\Game_titles.txt";
+	public static String title_data[][] = new String[1000][1000];
+	public static String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -175,7 +185,7 @@ public class inventory {
 		c_start.setBounds(50,15,666,75);
 		
 		String[] console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({ "rawtypes", "unchecked" })// i dont know why this needs to be here but it do
 		JComboBox consoles=new JComboBox(console);
 		consoles.setBounds(80, 90, 125, 30);
 		
@@ -215,11 +225,8 @@ public class inventory {
 	
 	@SuppressWarnings("rawtypes")
 	public static void e_search_frame() throws IOException{
-		JTable area=new JTable();
-		area.setBounds(300,30,600,400);
-		
 		JFrame e_frame=new JFrame("Employee Inventory Search");
-		e_frame.setSize(1000, 500);
+		e_frame.setSize(500, 500);
 		e_frame.setLayout(null);
 		e_frame.setVisible(true);
 		
@@ -243,10 +250,11 @@ public class inventory {
 		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
 		e_frame.add(e_title); e_frame.add(e_search); //add all components to the frame
 		
+		//add a while statement here so that they can search multiple times
+		
 		e_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent b){
-				String title_data[][] = new String[1000][1000];
-				String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
+				
 				
 				String game_title=e_title.getText(); //puts searched title into the variable       
 			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
@@ -254,10 +262,10 @@ public class inventory {
 			    try {
 			    	String list[]=new String[1000];
 			    	int maxIndx=-1;
-			    	Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
+			    	Scanner scan=new Scanner(new File(home));
 
 			    	while(scan.hasNextLine()){
-			    		final String find_line=scan.nextLine();
+			    		String find_line=scan.nextLine();
 			    		if(find_line.toLowerCase().contains(game_title.toLowerCase())){ //checks if the word (lower case) is in any words or 
 			    			if(find_line.toLowerCase().contains(data.toLowerCase())){
 			    				maxIndx++;
@@ -269,10 +277,8 @@ public class inventory {
 			    		String split_read_data[]=list[j].split(", ");
 			    		int x=0;
 				    	for(int a=0;a<=split_read_data.length-1;a++){ //this takes the data from search_data and splits it into its individual parts: name, console, condition, price, cost
-				    		System.out.println(a/5);
-				    		System.out.println(a);
 				    		if(a/5==0){   //if a is not 5...
-				    			//System.out.println(x+" "+y);
+				    			
 				    			title_data[j][x]=split_read_data[a];
 				    			x++;
 				    		}
@@ -280,11 +286,6 @@ public class inventory {
 			    	}
 			    	scan.close();
 			    	
-			    	area=new JTable(title_data,column); //fix this
-			    	
-			    	JScrollPane scroll=new JScrollPane(area);
-			    	
-			    	System.out.println("added");
 			    } 
 			    catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -292,12 +293,27 @@ public class inventory {
 			    }
 			}
 		});
+		e_inventory_search_frame();
 	}
 	
+	public static void e_inventory_search_frame() {
+		JFrame e_inventory_list=new JFrame("Searched Inventory");
+		e_inventory_list.setSize(600, 400);
+		e_inventory_list.setVisible(true);
+		e_inventory_list.setLayout(null);
+		e_inventory_list.setLocation(600, 0);
+		
+		JTable area=new JTable(title_data,column);
+		area.setBounds(0,0,600,400);
+		
+		JScrollPane scroll=new JScrollPane(area);
+		
+		e_inventory_list.add(area);e_inventory_list.add(scroll);
+	}
 	
 	public static void FileWriter(String word_and_def) throws IOException{
 		
-		FileWriter fw=new FileWriter("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt", true); //writes new registered employees
+		FileWriter fw=new FileWriter(home, true); //writes new registered employees
 		PrintWriter pw=new PrintWriter(fw, true);
 		pw.println(word_and_def); //File Writing Method so I don't have to type this every time
 		pw.close();
@@ -306,7 +322,7 @@ public class inventory {
 	}
 	
 	public static boolean FileReader_user_pass(String user, String pass) throws IOException{
-		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt")); //reads username and password lists
+		Scanner scan=new Scanner(new File(home_user_pass)); //reads username and password lists
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			if(find_line.toLowerCase().contains(user.toLowerCase())){//checks if the word (lower case) is in any words or 
@@ -323,7 +339,7 @@ public class inventory {
 	public static String FileReader_c_game_titles(String title, String console) throws IOException{ //reads list of game titles
 		String list[]=new String[1000];
 		int maxIndx=-1;
-		Scanner scan=new Scanner(new File("C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt"));
+		Scanner scan=new Scanner(new File(home));
 
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
@@ -336,7 +352,7 @@ public class inventory {
 			}
 			System.out.println();
 		}
-		String games = null;
+		String games="";
 		for(int j=0;j<=maxIndx;j++){
 			System.out.println(list[j]);
 			int splt_cost=list[j].lastIndexOf(", ");
@@ -346,7 +362,6 @@ public class inventory {
 		scan.close();
 		return games;
 	}
-	
 
 }
 
