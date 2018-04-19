@@ -307,11 +307,11 @@ public class Inventory {
 		e_inventory_list.setLocation(600, 0);
 		
 		JTable area=new JTable(title_data,column);
-		area.setBounds(0,0,600,400);
 		JScrollPane scroll=new JScrollPane(area);
-		
+		scroll.setBounds(0,0,600,400);
+		scroll.setViewportView(area);
 		e_inventory_list.setVisible(true);
-		e_inventory_list.add(area);e_inventory_list.add(scroll);
+		e_inventory_list.add(scroll);
 	}
 	
 	public static void FileWriter(String word_and_def) throws IOException{
