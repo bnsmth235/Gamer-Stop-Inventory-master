@@ -21,7 +21,7 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class Inventory {
+public class inventory {
 	
 	public static Scanner in=new Scanner(System.in);
 	public static String srch_in;
@@ -254,11 +254,19 @@ public class Inventory {
 		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
 		e_frame.add(e_title); e_frame.add(e_search); //add all components to the frame
 		
-		//add a while statement here so that they can search multiple times
+		JFrame e_inventory_list=new JFrame("Searched Inventory");
+		e_inventory_list.setSize(600, 400);
+		e_inventory_list.setLayout(null);
+		e_inventory_list.setLocation(600, 0);
+		
+		DefaultTableModel model=new DefaultTableModel();
+		model.addColumn("Title"); model.addColumn("Console"); model.addColumn("Price for Sale");
+		model.addColumn("Condition"); model.addColumn("Cost");
+		
+		String[] row_appender=new String[5];
 		
 		e_search.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent b){
-				
 				
 				String game_title=e_title.getText(); //puts searched title into the variable       
 			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
@@ -282,11 +290,11 @@ public class Inventory {
 			    		int x=0;
 				    	for(int a=0;a<=split_read_data.length-1;a++){ //this takes the data from search_data and splits it into its individual parts: name, console, condition, price, cost
 				    		if(a/5==0){   //if a is not 5...
-				    			
-				    			title_data[j][x]=split_read_data[a];
+				    			row_appender[x]=split_read_data[a];
 				    			x++;
 				    		}
 				    	}
+				    	model.addRow(row_appender);
 			    	}
 			    	scan.close();
 			    	
@@ -297,22 +305,15 @@ public class Inventory {
 			    }
 			}
 		});
-		e_inventory_search_frame();
-	}
-	
-	public static void e_inventory_search_frame() {
-		JFrame e_inventory_list=new JFrame("Searched Inventory");
-		e_inventory_list.setSize(600, 400);
-		e_inventory_list.setLayout(null);
-		e_inventory_list.setLocation(600, 0);
-		
-		JTable area=new JTable(title_data,column);
+		JTable area=new JTable(model);
 		JScrollPane scroll=new JScrollPane(area);
 		scroll.setBounds(0,0,600,400);
 		scroll.setViewportView(area);
+		
 		e_inventory_list.setVisible(true);
 		e_inventory_list.add(scroll);
 	}
+	
 	
 	public static void FileWriter(String word_and_def) throws IOException{
 		
@@ -323,7 +324,13 @@ public class Inventory {
 		fw.close();
 		
 	}
-	
+	/**
+	 * 
+	 * @param user
+	 * @param pass
+	 * @return
+	 * @throws IOException
+	 */
 	public static boolean FileReader_user_pass(String user, String pass) throws IOException{
 		Scanner scan=new Scanner(new File(school_user_pass)); //reads username and password lists
 		while(scan.hasNextLine()){
