@@ -96,9 +96,12 @@ public class inventory {
 			    
 		JButton r=new JButton("Register");
 		r.setBounds(100, 160, 90, 30);
+		
+		JButton back=new JButton("Back to Main");
+		back.setBounds(20, 250, 115, 30);
 			    
 		login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); 
-		login_frame.add(user); login_frame.add(r);//add all components to frame
+		login_frame.add(user); login_frame.add(r); login_frame.add(back);//add all components to frame
 			    
 		b.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent e) {  
@@ -158,9 +161,12 @@ public class inventory {
 					    
 				JButton b = new JButton("Login");  
 				b.setBounds(130,220, 90,30);   //login button 
+				
+				JButton back= new JButton("Back to Login");
+				back.setBounds(10, 280, 115, 30);
 					    
 				register.add(user); register.add(pass); register.add(reg_label); register.add(l2);
-			    register.add(b); register.add(l1); register.add(l3); register.add(confirm);
+			    register.add(b); register.add(l1); register.add(l3); register.add(confirm); register.add(back);
 			    		
 			    b.addActionListener(new ActionListener(){
 			    	public void actionPerformed(ActionEvent a){
@@ -173,10 +179,124 @@ public class inventory {
 			    		}
 			    	}
 			    });
+			    
+			    back.addActionListener(new ActionListener(){
+			    	public void actionPerformed(ActionEvent b){
+			    		register.setVisible(false);
+			    		employee();
+			    	}
+			    });
 			 }
 		});
+		back.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent b){
+	    		login_frame.setVisible(false);
+	    		try {
+					main(null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
+	    });
+			
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public static void e_search_frame() throws IOException{
+		JFrame e_frame=new JFrame("Employee Inventory Search");
+		e_frame.setSize(500, 500);
+		e_frame.setLayout(null);
+		e_frame.setVisible(true);
+		
+		JLabel e_start=new JLabel("Search for a Title by Name or Console");//title at top of frame
+		e_start.setBounds(50,15,666,75);
+		
+		String[] e_console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
+		@SuppressWarnings("unchecked")
+		JComboBox e_consoles=new JComboBox(e_console);
+		e_consoles.setBounds(80, 90, 130, 30);
+		
+		JLabel e_title_label=new JLabel("Game Title:");//title
+		e_title_label.setBounds(20, 150, 100, 30);
+		
+		JTextField e_title=new JTextField(); //search entry
+		e_title.setBounds(100, 150, 180, 30);
+		
+		JButton e_search=new JButton("Search");
+		e_search.setBounds(100, 220, 80, 30);//enter button basically
+		
+		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
+		e_frame.add(e_title); e_frame.add(e_search); //add all components to the frame
+		
+		JFrame e_inventory_list=new JFrame("Searched Inventory");
+		e_inventory_list.setSize(600, 400);
+		e_inventory_list.setLayout(null);
+		e_inventory_list.setLocation(600, 0);
+		
+		DefaultTableModel model=new DefaultTableModel();
+		model.addColumn("Title"); model.addColumn("Console"); model.addColumn("Price for Sale");
+		model.addColumn("Condition"); model.addColumn("Cost");
+		
+		String[] row_appender=new String[5];
+		
+		e_search.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent b){
+				
+				if (model.getRowCount() > 0) {
+				    for (int i = model.getRowCount() - 1; i > -1; i--) {
+				        model.removeRow(i);
+				    }
+				}
+				
+				String game_title=e_title.getText(); //puts searched title into the variable       
+			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
+			    
+			    try {
+			    	String list[]=new String[1000];
+			    	int maxIndx=-1;
+			    	Scanner scan=new Scanner(new File(school));
+
+			    	while(scan.hasNextLine()){
+			    		String find_line=scan.nextLine();
+			    		if(find_line.toLowerCase().contains(game_title.toLowerCase())){ //checks if the word (lower case) is in any words or 
+			    			if(data.equals("Select Console")){
+								maxIndx++;
+								list[maxIndx]=find_line;
+							}else if(find_line.toLowerCase().contains(data.toLowerCase())){
+			    				maxIndx++;
+			    				list[maxIndx]=find_line;
+			    			}
+			    		}
+			    	}
+			    	for(int j=0;j<=maxIndx;j++){ //iterates through every line containing what was searched
+			    		String split_read_data[]=list[j].split(", ");
+			    		int x=0;
+				    	for(int a=0;a<=split_read_data.length-1;a++){ //this takes the data from search_data and splits it into its individual parts: name, console, condition, price, cost
+				    		if(a/5==0){   //if a is not 5...
+				    			row_appender[x]=split_read_data[a];
+				    			x++;
+				    		}
+				    	}
+				    	model.addRow(row_appender);
+			    	}
+			    	scan.close();
+			    	
+			    } 
+			    catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			    }
+			}
+		});
+		JTable area=new JTable(model);
+		JScrollPane scroll=new JScrollPane(area);
+		scroll.setBounds(0,0,600,400);
+		scroll.setViewportView(area);
+		
+		e_inventory_list.setVisible(true);
+		e_inventory_list.add(scroll);
+	}
 	
 	public static void customer() throws IOException{
 		JFrame c_frame=new JFrame("Customer Inventory Search");
@@ -227,92 +347,7 @@ public class inventory {
 
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static void e_search_frame() throws IOException{
-		JFrame e_frame=new JFrame("Employee Inventory Search");
-		e_frame.setSize(500, 500);
-		e_frame.setLayout(null);
-		e_frame.setVisible(true);
-		
-		JLabel e_start=new JLabel("Search for a Title by Name or Console");//title at top of frame
-		e_start.setBounds(50,15,666,75);
-		
-		String[] e_console={"Select Console","PS4","XBox One", "Switch"}; //list of consoles
-		@SuppressWarnings("unchecked")
-		JComboBox e_consoles=new JComboBox(e_console);
-		e_consoles.setBounds(80, 90, 130, 30);
-		
-		JLabel e_title_label=new JLabel("Game Title:");//title
-		e_title_label.setBounds(20, 150, 100, 30);
-		
-		JTextField e_title=new JTextField(); //search entry
-		e_title.setBounds(100, 150, 180, 30);
-		
-		JButton e_search=new JButton("Search");
-		e_search.setBounds(100, 220, 80, 30);//enter button basically
-		
-		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
-		e_frame.add(e_title); e_frame.add(e_search); //add all components to the frame
-		
-		JFrame e_inventory_list=new JFrame("Searched Inventory");
-		e_inventory_list.setSize(600, 400);
-		e_inventory_list.setLayout(null);
-		e_inventory_list.setLocation(600, 0);
-		
-		DefaultTableModel model=new DefaultTableModel();
-		model.addColumn("Title"); model.addColumn("Console"); model.addColumn("Price for Sale");
-		model.addColumn("Condition"); model.addColumn("Cost");
-		
-		String[] row_appender=new String[5];
-		
-		e_search.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent b){
-				
-				String game_title=e_title.getText(); //puts searched title into the variable       
-			    String data=(String) e_consoles.getItemAt(e_consoles.getSelectedIndex());  //gets which console they chose and saves it into an object
-			    
-			    try {
-			    	String list[]=new String[1000];
-			    	int maxIndx=-1;
-			    	Scanner scan=new Scanner(new File(school));
-
-			    	while(scan.hasNextLine()){
-			    		String find_line=scan.nextLine();
-			    		if(find_line.toLowerCase().contains(game_title.toLowerCase())){ //checks if the word (lower case) is in any words or 
-			    			if(find_line.toLowerCase().contains(data.toLowerCase())){
-			    				maxIndx++;
-			    				list[maxIndx]=find_line;
-			    			}
-			    		}
-			    	}
-			    	for(int j=0;j<=maxIndx;j++){ //iterates through every line containing what was searched
-			    		String split_read_data[]=list[j].split(", ");
-			    		int x=0;
-				    	for(int a=0;a<=split_read_data.length-1;a++){ //this takes the data from search_data and splits it into its individual parts: name, console, condition, price, cost
-				    		if(a/5==0){   //if a is not 5...
-				    			row_appender[x]=split_read_data[a];
-				    			x++;
-				    		}
-				    	}
-				    	model.addRow(row_appender);
-			    	}
-			    	scan.close();
-			    	
-			    } 
-			    catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-			    }
-			}
-		});
-		JTable area=new JTable(model);
-		JScrollPane scroll=new JScrollPane(area);
-		scroll.setBounds(0,0,600,400);
-		scroll.setViewportView(area);
-		
-		e_inventory_list.setVisible(true);
-		e_inventory_list.add(scroll);
-	}
+	
 	
 	
 	public static void FileWriter(String word_and_def) throws IOException{
@@ -350,12 +385,15 @@ public class inventory {
 		String list[]=new String[1000];
 		int maxIndx=-1;
 		Scanner scan=new Scanner(new File(school));
-
+		System.out.println(console);
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			
 			if(find_line.toLowerCase().contains(title.toLowerCase())){ //checks if the word (lower case) is in any words or 
-				if(find_line.toLowerCase().contains(console.toLowerCase())){
+				if(console.equals("Select Console")){
+					maxIndx++;
+					list[maxIndx]=find_line;
+				}else if(find_line.toLowerCase().contains(console.toLowerCase())){
 					maxIndx++;
 					list[maxIndx]=find_line;
 				}
