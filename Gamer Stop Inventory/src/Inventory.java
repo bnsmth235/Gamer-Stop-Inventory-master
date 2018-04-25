@@ -7,11 +7,6 @@
  * @version 1.0
  * @Since January 19, 2018
  * 
- * 
- * C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt           for home computer
- * C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt
- * 
- * C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt         for school computer
  */
 
 import javax.swing.*;
@@ -19,9 +14,14 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.PathMatcher;
 
 public class Inventory {
 	
@@ -41,10 +41,17 @@ public class Inventory {
 		frame=new JFrame("Gamer Stop Inventory"); //UI start 
 		frame.setSize(950, 300);
 		frame.setLocation(400, 300);
+	
+		File file=new File("timpview.png");
+		String filepath=file.getAbsolutePath();
+		ImageIcon t_bird_icon=new ImageIcon(filepath);
+		frame.setIconImage(t_bird_icon.getImage());
+		
 		frame.setLayout(null);	
 		frame.setVisible(true);
 		Container b=frame.getContentPane();
 		b.setBackground(Color.orange);
+		
 		
 		JLabel title= new JLabel("Are you a customer or an Employee?");
 		title.setBounds(333,25,666,75);
@@ -63,7 +70,7 @@ public class Inventory {
 				try {
 					customer();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} //goes to the start method
 			}
@@ -74,7 +81,8 @@ public class Inventory {
 			}
 		});
 	}
-	
+
+
 	public static void employee(){
 		frame.setVisible(false);//gets rid of old window
 		
@@ -208,8 +216,7 @@ public class Inventory {
 					e.printStackTrace();
 				}
 	    	}
-	    });
-			
+	    });	
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -309,11 +316,7 @@ public class Inventory {
 				add_frame.add(title); add_frame.add(title_label);add_frame.add(console_label); add_frame.add(console); add_frame.add(price);
 				add_frame.add(condition); add_frame.add(cost);add_frame.add(cost_label);add_frame.add(condition_label);add_frame.add(price_label);
 				add_frame.add(enter); add_frame.add(cancel);
-				
-				
-				
-				
-				}
+			}
 		});
 		
 		e_frame.add(e_start); e_frame.add(e_consoles); e_frame.add(e_title_label); 
