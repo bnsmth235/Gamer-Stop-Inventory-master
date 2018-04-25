@@ -14,18 +14,19 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 import java.io.*;
 
 public class Inventory {
 	
 	public static String srch_in;
-	public static JFrame frame;
 	public static String title_data[][] = new String[1000][1000];
 	public static String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		frame=new JFrame("Gamer Stop Inventory"); //UI start 
+		JFrame frame=new JFrame("Gamer Stop Inventory");
 		frame.setSize(950, 300);
 		frame.setLocation(400, 300);
 	
@@ -36,6 +37,7 @@ public class Inventory {
 		
 		frame.setLayout(null);	
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container b=frame.getContentPane();
 		b.setBackground(Color.orange);
 		
@@ -63,6 +65,7 @@ public class Inventory {
 		});
 		e.addActionListener(new ActionListener(){ //if you press the employee button
 			public void actionPerformed(ActionEvent e){
+				frame.setVisible(false);
 				employee();
 			}
 		});
@@ -70,13 +73,14 @@ public class Inventory {
 
 	
 	public static void employee(){
-		frame.setVisible(false);//gets rid of old window
+		//gets rid of old window
 		
 		JFrame login_frame = new JFrame("Employee Login");
 		login_frame.setSize(300, 300);	
 		login_frame.setLocation(700,300);
 		login_frame.setLayout(null); //new window setup
 		login_frame.setVisible(true);
+		login_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		File file=new File("src\\timpview.png");
 		String filepath=file.getAbsolutePath();
@@ -105,34 +109,37 @@ public class Inventory {
 		r.setBounds(100, 160, 90, 30);
 		
 		JButton back=new JButton("Back to Main");
-		back.setBounds(86, 200, 115, 30);		    
+		back.setBounds(86, 200, 115, 30);		
 		
+		JLabel incorrect=new JLabel("Username or Password Incorrect");
+		incorrect.setBounds(48,38,200,50);
+		incorrect.setVisible(false);
 		login_frame.add(pass); login_frame.add(l1); login_frame.add(l2); login_frame.add(b); 
-		login_frame.add(user); login_frame.add(r); login_frame.add(back);//add all components to frame
+		login_frame.add(user); login_frame.add(r); login_frame.add(back); login_frame.add(incorrect);//add all components to frame
 			    
 		b.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent e) {  
 			    String username = user.getText();  //gets input from the frame and saves into variables
 			    @SuppressWarnings("deprecation")
 				String password = pass.getText();
-			    
-			    try {
-					if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
-						JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
-						welcome.setBounds(75,200,100,100);
-						login_frame.add(welcome);
-						login_frame.setVisible(false);
-						e_search_frame();
-					}else{
-						//you need something here to make it say that you got the username/password wrong
-						JLabel incorrect=new JLabel("Username or Password Incorrect");
-						incorrect.setBounds(45,200,300,50);
-						login_frame.add(incorrect);
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();//idk why this is here, but it doesnt work without it
-				}
+			    if(username.equals("") || password.equals("")) {
+			    	incorrect.setVisible(true);
+			    }else {
+			    	try {
+			    		if(FileReader_user_pass(username, password)==true){ //if the inputted username and password are in the saved list
+			    			JLabel welcome=new JLabel("Welcome "+username); //says welcome [username]
+			    			welcome.setBounds(75,200,100,100);
+			    			login_frame.add(welcome);
+			    			login_frame.setVisible(false);
+			    			e_search_frame();
+			    		}else{
+			    			//you need something here to make it say that you got the username/password wrong
+			    			incorrect.setVisible(true);
+			    		}
+			    	} catch (IOException e1) {
+			    		e1.printStackTrace();//idk why this is here, but it doesnt work without it
+			    	}
+			    }
 			 }  
 		});  
 			    
@@ -145,7 +152,7 @@ public class Inventory {
 			    register.setLayout(null);
 			    register.setVisible(true);
 			    register.setLocation(700,300);
-			    
+			    register.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    File file=new File("src\\timpview.png");
 				String filepath=file.getAbsolutePath();
 				ImageIcon t_bird_icon=new ImageIcon(filepath);
@@ -224,7 +231,7 @@ public class Inventory {
 		e_frame.setLocation(400, 350);
 		e_frame.setLayout(null);
 		e_frame.setVisible(true);
-		
+		e_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		File file=new File("src\\timpview.png");
 		String filepath=file.getAbsolutePath();
 		ImageIcon t_bird_icon=new ImageIcon(filepath);
@@ -234,6 +241,7 @@ public class Inventory {
 		c.setBackground(Color.orange);
 		
 		JFrame add_frame=new JFrame("Add Game Info");
+		add_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel e_start=new JLabel("Search for a Title by Name or Console");//title at top of frame
 		e_start.setBounds(50,15,666,75);
@@ -336,7 +344,7 @@ public class Inventory {
 		e_inventory_list.setLayout(null);
 		e_inventory_list.setLocation(750, 350);
 		e_inventory_list.setIconImage(t_bird_icon.getImage());
-		
+		e_inventory_list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container a=e_inventory_list.getContentPane();
 		a.setBackground(Color.orange);
 		
@@ -425,7 +433,7 @@ public class Inventory {
 		c_frame.setLocation(400, 200);
 		c_frame.setLayout(null);
 		c_frame.setVisible(true);
-		
+		c_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		File file=new File("src\\timpview.png");
 		String filepath=file.getAbsolutePath();
 		ImageIcon t_bird_icon=new ImageIcon(filepath);
