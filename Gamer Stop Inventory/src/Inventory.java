@@ -11,28 +11,15 @@
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.PathMatcher;
 
 public class Inventory {
 	
-	public static Scanner in=new Scanner(System.in);
 	public static String srch_in;
-	public static String return_word_and_def;
 	public static JFrame frame;
-	public static String home="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt";
-	public static String home_user_pass="C:\\Users\\Ben Smith\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt";
-	public static String school="C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\Game_titles.txt";
-	public static String school_user_pass="C:\\Users\\bs034696\\Documents\\GitHub\\Gamer-Stop-Inventory-master\\Gamer Stop Inventory\\src\\User_pass.txt.txt";
 	public static String title_data[][] = new String[1000][1000];
 	public static String column[]={"Title","Platform", "Price for Sale","Condition","Cost"};
 	
@@ -42,7 +29,7 @@ public class Inventory {
 		frame.setSize(950, 300);
 		frame.setLocation(400, 300);
 	
-		File file=new File("timpview.png");
+		File file=new File("src\\timpview.png");
 		String filepath=file.getAbsolutePath();
 		ImageIcon t_bird_icon=new ImageIcon(filepath);
 		frame.setIconImage(t_bird_icon.getImage());
@@ -51,7 +38,6 @@ public class Inventory {
 		frame.setVisible(true);
 		Container b=frame.getContentPane();
 		b.setBackground(Color.orange);
-		
 		
 		JLabel title= new JLabel("Are you a customer or an Employee?");
 		title.setBounds(333,25,666,75);
@@ -82,7 +68,7 @@ public class Inventory {
 		});
 	}
 
-
+	
 	public static void employee(){
 		frame.setVisible(false);//gets rid of old window
 		
@@ -91,6 +77,12 @@ public class Inventory {
 		login_frame.setLocation(700,300);
 		login_frame.setLayout(null); //new window setup
 		login_frame.setVisible(true);
+		
+		File file=new File("src\\timpview.png");
+		String filepath=file.getAbsolutePath();
+		ImageIcon t_bird_icon=new ImageIcon(filepath);
+		login_frame.setIconImage(t_bird_icon.getImage());
+		
 		Container c=login_frame.getContentPane();
 		c.setBackground(Color.orange);
 				
@@ -153,6 +145,12 @@ public class Inventory {
 			    register.setLayout(null);
 			    register.setVisible(true);
 			    register.setLocation(700,300);
+			    
+			    File file=new File("src\\timpview.png");
+				String filepath=file.getAbsolutePath();
+				ImageIcon t_bird_icon=new ImageIcon(filepath);
+				register.setIconImage(t_bird_icon.getImage());
+				
 			    Container c=register.getContentPane();
 				c.setBackground(Color.orange);
 			    		
@@ -226,6 +224,12 @@ public class Inventory {
 		e_frame.setLocation(400, 350);
 		e_frame.setLayout(null);
 		e_frame.setVisible(true);
+		
+		File file=new File("src\\timpview.png");
+		String filepath=file.getAbsolutePath();
+		ImageIcon t_bird_icon=new ImageIcon(filepath);
+		e_frame.setIconImage(t_bird_icon.getImage());
+		
 		Container c=e_frame.getContentPane();
 		c.setBackground(Color.orange);
 		
@@ -258,6 +262,11 @@ public class Inventory {
 				add_frame.setLocation(400, 750);
 				add_frame.setLayout(null);
 				add_frame.setVisible(true);
+				File file=new File("src\\timpview.png");
+				String filepath=file.getAbsolutePath();
+				ImageIcon t_bird_icon=new ImageIcon(filepath);
+				add_frame.setIconImage(t_bird_icon.getImage());
+				
 				Container c=add_frame.getContentPane();
 				c.setBackground(Color.orange);
 				
@@ -326,6 +335,8 @@ public class Inventory {
 		e_inventory_list.setSize(750, 400);
 		e_inventory_list.setLayout(null);
 		e_inventory_list.setLocation(750, 350);
+		e_inventory_list.setIconImage(t_bird_icon.getImage());
+		
 		Container a=e_inventory_list.getContentPane();
 		a.setBackground(Color.orange);
 		
@@ -350,7 +361,9 @@ public class Inventory {
 			    try {
 			    	String list[]=new String[1000];
 			    	int maxIndx=-1;
-			    	Scanner scan=new Scanner(new File(home));
+			    	File game_titles=new File("src\\Game_titles.txt");
+					String game_titles_path=game_titles.getAbsolutePath();
+			    	Scanner scan=new Scanner(new File(game_titles_path));
 
 			    	while(scan.hasNextLine()){
 			    		String find_line=scan.nextLine();
@@ -412,6 +425,12 @@ public class Inventory {
 		c_frame.setLocation(400, 200);
 		c_frame.setLayout(null);
 		c_frame.setVisible(true);
+		
+		File file=new File("src\\timpview.png");
+		String filepath=file.getAbsolutePath();
+		ImageIcon t_bird_icon=new ImageIcon(filepath);
+		c_frame.setIconImage(t_bird_icon.getImage());
+		
 		Container c=c_frame.getContentPane();
 		c.setBackground(Color.orange);
 		
@@ -476,8 +495,9 @@ public class Inventory {
 	
 	
 	public static void FileWriter(String title, String console, String price, String condition, String cost) throws IOException{
-		
-		FileWriter fw=new FileWriter(home, true); //writes new registered employees
+		File game_titles=new File("src\\Game_titles.txt");
+		String game_titles_path=game_titles.getAbsolutePath();
+		FileWriter fw=new FileWriter(game_titles_path, true); //writes new registered employees
 		PrintWriter pw=new PrintWriter(fw, true);
 		if(price.contains("$")) {
 			if(cost.contains("$")) {
@@ -511,7 +531,10 @@ public class Inventory {
 	 * @throws IOException
 	 */
 	public static boolean FileReader_user_pass(String user, String pass) throws IOException{
-		Scanner scan=new Scanner(new File(home_user_pass)); //reads username and password lists
+		File login_info=new File("src\\User_pass.txt.txt");
+		String login_info_path=login_info.getAbsolutePath();
+		
+		Scanner scan=new Scanner(new File(login_info_path)); //reads username and password lists
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			if(find_line.toLowerCase().contains(user.toLowerCase())){//checks if the word (lower case) is in any words or 
@@ -528,8 +551,9 @@ public class Inventory {
 	public static String FileReader_c_game_titles(String title, String console) throws IOException{ //reads list of game titles
 		String list[]=new String[1000];
 		int maxIndx=-1;
-		Scanner scan=new Scanner(new File(home));
-		System.out.println(console);
+		File game_titles=new File("src\\Game_titles.txt");
+		String game_titles_path=game_titles.getAbsolutePath();
+		Scanner scan=new Scanner(new File(game_titles_path));
 		while(scan.hasNextLine()){
 			final String find_line=scan.nextLine();
 			
@@ -542,13 +566,10 @@ public class Inventory {
 					list[maxIndx]=find_line;
 				}
 			}
-			System.out.println();
 		}
 		String games="";
 		for(int j=0;j<=maxIndx;j++){
-			System.out.println(list[j]);
 			int splt_cost=list[j].lastIndexOf(", ");
-			System.out.println(splt_cost);
 			games=list[j].substring(0, splt_cost)+"\n"+games;
 		}
 		scan.close();
